@@ -37,12 +37,16 @@ spec:
           enable: true
         metrics-server:
           enable: true
+        newrelic:
+          enable: true
+          licenseKey: <YOUR_NEWRELIC_LICENSE_KEY>
+          clusterName: <YOUR_CLUSTER_NAME>
   destination:
     server: {{ .Values.destinationServer | default "https://kubernetes.default.svc" }}
     namespace: argocd
 ```
 
-Note that you specify which add-ons should be installed by supplying values in the `spec.source.helm.values` map configuration. This example will only install `cluster-autoscaler` and `metrics-server`. To view available add-ons, visit the `add-ons` directory.
+Note that you specify which add-ons should be installed by supplying values in the `spec.source.helm.values` map configuration. This example will only install `cluster-autoscaler`, `metrics-server`, and `newrelic`. To view available add-ons, visit the `add-ons` directory.
 
 #### Deploy the add-ons
 
@@ -76,6 +80,7 @@ chart
 │   └── aws-load-balancer-controller.yaml
 │   └── aws-otel-collector.yaml
 │   └── aws-cert-manager.yaml
+│   └── newrelic.yaml
 │   └── ...
 ├── Chart.yaml
 ├── values.yaml
@@ -96,6 +101,9 @@ add-ons
 ├── calico.yaml
 │   └── Chart.yaml
 ├── aws-cloudwatch-metrics.yaml
+│   └── Chart.yaml
+│   └── values.yaml
+├── newrelic
 │   └── Chart.yaml
 │   └── values.yaml
 │   └── ...
